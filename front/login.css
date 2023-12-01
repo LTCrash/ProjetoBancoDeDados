@@ -1,0 +1,306 @@
+.carta {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    transform: translate(0,-40px);
+    border: 2px solid var(--corbordas);
+    z-index: 0;
+    background-color: var(--cormedia);
+    background-clip: content-box;
+}
+.corpo3 {
+    width: 60%;
+    height: 40%;
+    background-color: var(--formulario);
+    border-radius: 10%;
+    transform: translate(35%,80%);
+    position: absolute;
+    z-index: 1;
+}
+.abref {
+    width: 50%;
+    height: 50%;
+    background-color: var(--cormedia);
+    border-radius: 15%;
+    transform: translate(50%,5%) rotate(225deg);
+    clip-path: polygon(0% 90% , 0% 0%, 90%  0%);
+    position: absolute;
+    z-index: 2;
+}
+.abre {
+    width: 50%;
+    height: 50%;
+    background-color: var(--formulario);
+    border-radius: 15%;
+    transform: translate(50%,-5%) rotate(225deg);
+    clip-path: polygon(0% 75% , 0% 0%, 75%  0%);
+    position: absolute;
+    z-index: 3;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+.cadeado {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    transform: translate(0,-40px);
+    background-color: var(--cormedia);
+    border: 2px solid var(--corbordas);
+    z-index: 0;
+    background-clip: content-box;
+}
+.arco {
+    width: 40%;
+    height: 30%;
+    background-color: var(--formulario);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    transform: translate(76%,60%);
+    position: absolute;
+    z-index: 1;
+}
+.arcov {
+    width: 20%;
+    height: 15%;
+    background-color: var(--cormedia);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    transform:translate(200%,190%);
+    position: absolute;
+    z-index: 2;
+}
+.corpo {
+    width: 50%;
+    height: 30%;
+    background-color: var(--formulario);
+    border-radius: 20%;
+    transform: translate(50%,150%);
+    position: absolute;
+    z-index: 3;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+.busto {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    transform: translate(0,-40px);
+    background-color: var(--cormedia);
+    border: 2px solid var(--corbordas);
+    z-index: 0;
+    background-clip: content-box;
+}
+.cabeca {
+    width: 27%;
+    height: 27%;
+    background-color: var(--formulario);
+    border-radius: 50%;
+    transform: translate(135%,60%);
+    position: absolute;
+    z-index: 1;
+}
+.corpo2 {
+    width: 50%;
+    height: 30%;
+    background-color: var(--formulario);
+    border-radius: 20%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    transform: translate(50%,150%);
+    position: absolute;
+    z-index: 3;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+.martelo {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    transform: translate(0,-40px);
+    background-color: var(--cormedia);
+    border: 2px solid var(--corbordas);
+    z-index: 0;
+    background-clip: content-box;
+}
+.cabeca2 {
+    width: 25%;
+    height: 40%;
+    background-color: var(--formulario);
+    border-radius: 30%;
+    transform: translate(110%,40%) rotate(45deg);
+    position: absolute;
+    z-index: 1;
+}
+.aste {
+    width: 70%;
+    height: 15%;
+    background-color: var(--formulario);
+    border-radius: 30%;
+    transform: translate(25%,280%) rotate(45deg);
+    position: absolute;
+    z-index: 2;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+:root {
+    --fontColorDark: #05445E;
+    --fontColorLight: #E4F4F3;
+    --corextraclara: #A1DBF1;
+    --formulario: #fff;
+    --corclara: #71D5E4;
+    --cormedia: #00B6BC;
+    --corescura: #29A0B1;
+    --corextraescura: #05445E;
+    --corbordas: #ccc;
+    --corerro: #a00;
+    --corcerto: #0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: Border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: linear-gradient(var(--corextraescura), var(--corclara));
+}
+
+form {
+    background-color: var(--formulario); /* Cor de fundo do formulario */
+    max-width: 450px; /* Tamanho maximo do formulario */
+    width: 50%; /* Largura do formulario em relação a tela */
+    padding: 10px;
+    position: absolute;
+    left: 50%; /* Posição do formulario em relação a tela */
+    top: 50%; /* Posição do formulario em relação a tela */
+    transform: translate(-50%, -50%); /* Tira o tamanho do formulario em relção a posição */
+    border-radius: 10px;
+}
+
+form h3 {
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 200%; /* Tamanho da fonte */
+    text-align: center; /* Posicão do texto */
+    color: var(--cormedia);
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+form input[type=email] {
+    width: calc(100% - 35px);
+    height: 35px;
+    border: 2px solid var(--corbordas);
+    padding-left: 10px;
+    margin: 5px 0;
+    transform: translateX(35px);
+}
+
+form input[id=pasini] {
+    width: calc(100% - 35px);
+    height: 35px;
+    border: 2px solid var(--corbordas);
+    padding-left: 10px;
+    margin: 5px 0;
+    transform: translateX(35px);
+}
+
+form input[id=checkSen] {
+    display: inline;
+    height: 17px;
+    width: 17px;
+    transform: translateY(3px);
+}
+
+form label[for=checkSen] {
+    font-weight: bold;
+    font-size: small;
+}
+
+form input[type="password"] {
+    -webkit-text-security: disc;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+form text[id=emerro] {
+    position: relative;
+    display: none;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--corerro);
+}
+
+form text[id=senerro] {
+    display: none;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--corerro);
+}
+
+form text[id=esqueci] {
+    display: none;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--corerro);
+}
+
+form a[id=esqueci2] {
+    display: none;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--corerro);
+    cursor: pointer;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+form input[id=emini]:focus, form input[id=pasini]:focus {
+    outline: none;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+form input[id=enviarform] {
+    width: 84%;
+    height: 40px;
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    background: var(--cormedia);
+    color: var(--formulario);
+    border: 0;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: 500ms;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 90%;
+}
+
+form input[id=abrirform] {
+    display: inline;
+    width: 15%; /* largura do botão */
+    height: 40px; /* Altura do botão em pixel */
+    background: var(--cormedia); /* Cor do botão */
+    color: var(--formulario); /* Cor da fonte */
+    border: 0;
+    border-radius: 5px; /* Arendonda as bordas */
+    margin: 10px 0;
+    transition: 500ms; /* Tempo para transição */
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
+    font-weight: bold;
+    cursor : pointer;
+    font-size: 90%; /* Tamanho da fonte */
+    float: right; /* Alinha o objeto a margem direita */
+}
