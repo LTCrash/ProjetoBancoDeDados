@@ -1,3 +1,17 @@
+form img[id=loginimg] {
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    display: inline;
+    margin-right: auto;
+    aspect-ratio: 1/1;
+    color: #aaa;
+    border: 2px dashed currentcolor;
+    cursor: pointer;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
 .carta {
     width: 35px;
     height: 35px;
@@ -231,7 +245,45 @@ form input[type="password"] {
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
+form input[id=nomeini] {
+    width: calc(100% - 35px);
+    height: 35px;
+    border: 2px solid var(--corbordas);
+    padding-left: 10px;
+    margin: 5px 0;
+    transform: translateX(35px);
+}
+
+form input[id=sobrenomeini] {
+    width: calc(100% - 35px);
+    height: 35px;
+    border: 2px solid var(--corbordas);
+    padding-left: 10px;
+    margin: 5px 0;
+    transform: translateX(35px);
+}
+
+form input[id=imagemini] {
+    display: inline;
+    width: 80%;
+    height: 35px;
+    border: 2px solid var(--corbordas);
+    padding-left: 10px;
+    margin: 5px 0;
+    float: right;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
 form text[id=emerro] {
+    position: relative;
+    display: none;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--corerro);
+}
+
+form text[id=emerro2] {
     position: relative;
     display: none;
     text-align: center;
@@ -246,34 +298,34 @@ form text[id=senerro] {
     color: var(--corerro);
 }
 
-form text[id=esqueci] {
+form text[id=nomerro] {
     display: none;
     text-align: center;
     text-decoration: underline;
     color: var(--corerro);
 }
 
-form a[id=esqueci2] {
+form text[id=imgerro] {
     display: none;
     text-align: center;
     text-decoration: underline;
     color: var(--corerro);
-    cursor: pointer;
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
-form input[id=emini]:focus, form input[id=pasini]:focus {
-    outline: none;
+form input[id=emini]:focus, form input[id=pasini]:focus, form input[id=nomeini]:focus,
+form input[id=sobrenomeini]:focus, form input[id=imagemini]:focus {
+    outline: none; 
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 form input[id=enviarform] {
-    width: 84%;
+    width: 15%;
     height: 40px;
     cursor: pointer; /* Muda o ponteiro do mouse */
-    background: var(--cormedia);
+    background: var(--corescura);
     color: var(--formulario);
     border: 0;
     border-radius: 5px;
@@ -288,11 +340,12 @@ form input[id=enviarform] {
 
 form input[id=abrirform] {
     display: inline;
-    width: 15%; /* largura do botão */
+    width: 84%; /* largura do botão */
     height: 40px; /* Altura do botão em pixel */
-    background: var(--corescura); /* Cor do botão */
+    background: var(--cormedia); /* Cor do botão */
     color: var(--formulario); /* Cor da fonte */
     border: 0;
+    cursor: pointer;
     border-radius: 5px; /* Arendonda as bordas */
     margin: 10px 0;
     transition: 500ms; /* Tempo para transição */
@@ -300,7 +353,6 @@ form input[id=abrirform] {
     overflow: hidden; /* Esconde o conteúdo excedente */
     text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
     font-weight: bold;
-    cursor : pointer;
     font-size: 90%; /* Tamanho da fonte */
     float: right; /* Alinha o objeto a margem direita */
 }

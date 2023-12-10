@@ -1,3 +1,21 @@
+img[id=userimg] {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline;
+    margin-right: auto;
+    aspect-ratio: 1/1;
+    color: #aaa;
+    cursor: pointer;
+    float: right;
+}
+
+a[id=link]{
+    display: none;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
 .carta {
     width: 35px;
     height: 35px;
@@ -171,136 +189,167 @@ body {
     background-image: linear-gradient(var(--corextraescura), var(--corclara));
 }
 
-form {
+nav[id=navbar] {
     background-color: var(--formulario); /* Cor de fundo do formulario */
-    max-width: 450px; /* Tamanho maximo do formulario */
-    width: 50%; /* Largura do formulario em relação a tela */
+    border: 2px solid var(--corbordas);
+    height: 60px;
+    width: 100%; /* Largura do formulario em relação a tela */
     padding: 10px;
-    position: absolute;
-    left: 50%; /* Posição do formulario em relação a tela */
-    top: 50%; /* Posição do formulario em relação a tela */
-    transform: translate(-50%, -50%); /* Tira o tamanho do formulario em relção a posição */
+    position: fixed;
+    top: 0;
+}
+
+a[id=nome] {
+    display: none;
+    text-align: center;
+    text-decoration: solid;
+    color: var(--corescura);
+    cursor: pointer;
+    float: right;
+    padding: 10px;
+}
+
+div[id=paginicial] {
+    background-color: var(--formulario); /* Cor de fundo do formulario */
+    max-width: 1500px; /* Tamanho maximo do formulario */
+    width: 80%; /* Largura do formulario em relação a tela */
+    padding: 10px;
+    position:absolute;
+    left: 10%; /* Posição do formulario em relação a tela */
+    top: 15%; /* Posição do formulario em relação a tela */
     border-radius: 10px;
 }
 
-form h3 {
+div[id=mostruario] {
+    background-color: var(--formulario); /* Cor de fundo do formulario */
+    max-width: 1200px; /* Tamanho maximo do formulario */
+    width: 80%;
+    padding: 10px;
+    border: 2px solid var(--corbordas);
+    display: inline;
+    float: right;
+}
+
+div[id=confg] {
+    background-color: var(--formulario); /* Cor de fundo do formulario */
+    max-width: 300px; /* Tamanho maximo do formulario */
+    width: 20%;
+    padding: 10px;
+    border: 2px solid var(--corbordas);
+    display: inline;
+    float: left;
+}
+
+div h3 {
     white-space: nowrap; /* Impede a quebra de linha */
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: bold;
-    font-size: 200%; /* Tamanho da fonte */
+    font-size: 100%; /* Tamanho da fonte */
     text-align: center; /* Posicão do texto */
     color: var(--cormedia);
 }
 
+div[id=barra] {
+    width: 100%;
+    padding: 1px;
+    border: 2px solid var(--corbordas);
+    display: block;
+    float: right;
+}
+
+div[id=produtos] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--corbordas);
+    display: block;
+    float: right;
+}
+
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
-form input[type=email] {
-    width: calc(100% - 35px);
+input[id=pesquisar] {
+    width: 50%;
     height: 35px;
     border: 2px solid var(--corbordas);
     padding-left: 10px;
     margin: 5px 0;
-    transform: translateX(35px);
-}
-
-form input[id=pasini] {
-    width: calc(100% - 35px);
-    height: 35px;
-    border: 2px solid var(--corbordas);
-    padding-left: 10px;
-    margin: 5px 0;
-    transform: translateX(35px);
-}
-
-form input[id=checkSen] {
+    float: right; /* Alinha o objeto a margem direita */
     display: inline;
-    height: 17px;
-    width: 17px;
-    transform: translateY(3px);
-}
-
-form label[for=checkSen] {
-    font-weight: bold;
-    font-size: small;
-}
-
-form input[type="password"] {
-    -webkit-text-security: disc;
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
-form text[id=emerro] {
-    position: relative;
-    display: none;
-    text-align: center;
-    text-decoration: underline;
-    color: var(--corerro);
-}
-
-form text[id=senerro] {
-    display: none;
-    text-align: center;
-    text-decoration: underline;
-    color: var(--corerro);
-}
-
-form text[id=esqueci] {
-    display: none;
-    text-align: center;
-    text-decoration: underline;
-    color: var(--corerro);
-}
-
-form a[id=esqueci2] {
-    display: none;
-    text-align: center;
-    text-decoration: underline;
-    color: var(--corerro);
-    cursor: pointer;
-}
-
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-
-form input[id=emini]:focus, form input[id=pasini]:focus {
+input[id=pesquisar]:focus {
     outline: none;
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
-form input[id=enviarform] {
-    width: 84%;
-    height: 40px;
-    cursor: pointer; /* Muda o ponteiro do mouse */
-    background: var(--cormedia);
-    color: var(--formulario);
-    border: 0;
-    border-radius: 5px;
-    margin: 10px 0;
-    transition: 500ms;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    font-size: 90%;
-}
-
-form input[id=abrirform] {
+input[id=Bpesquisar] {
     display: inline;
-    width: 15%; /* largura do botão */
-    height: 40px; /* Altura do botão em pixel */
-    background: var(--corescura); /* Cor do botão */
+    width: 10%; /* largura do botão */
+    height: 35px; /* Altura do botão em pixel */
+    background: var(--cormedia); /* Cor do botão */
     color: var(--formulario); /* Cor da fonte */
     border: 0;
-    border-radius: 5px; /* Arendonda as bordas */
-    margin: 10px 0;
-    transition: 500ms; /* Tempo para transição */
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    margin: 5px 0;
     white-space: nowrap; /* Impede a quebra de linha */
     overflow: hidden; /* Esconde o conteúdo excedente */
     text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
     font-weight: bold;
-    cursor : pointer;
+    font-size: 90%; /* Tamanho da fonte */
+    float: right; /* Alinha o objeto a margem direita */
+}
+
+input[id=sair] {
+    display: none;
+    width: 35px; /* largura do botão */
+    height: 35px; /* Altura do botão em pixel */
+    background: var(--cormedia); /* Cor do botão */
+    color: var(--formulario); /* Cor da fonte */
+    border: 0;
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    margin: 5px 0;
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
+    font-weight: bold;
+    font-size: 90%; /* Tamanho da fonte */
+    float: right; /* Alinha o objeto a margem direita */
+}
+
+input[id=login] {
+    display: inline;
+    width: 50px; /* largura do botão */
+    height: 35px; /* Altura do botão em pixel */
+    background: var(--cormedia); /* Cor do botão */
+    color: var(--formulario); /* Cor da fonte */
+    border: 0;
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    margin: 5px 0;
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
+    font-weight: bold;
+    font-size: 90%; /* Tamanho da fonte */
+    float: right; /* Alinha o objeto a margem direita */
+}
+
+input[id=registrar] {
+    display: inline;
+    width: 70px; /* largura do botão */
+    height: 35px; /* Altura do botão em pixel */
+    background: var(--corextraescura); /* Cor do botão */
+    color: var(--formulario); /* Cor da fonte */
+    border: 0;
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    margin: 5px 0;
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
+    font-weight: bold;
     font-size: 90%; /* Tamanho da fonte */
     float: right; /* Alinha o objeto a margem direita */
 }

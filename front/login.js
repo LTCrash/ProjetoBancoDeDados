@@ -1,29 +1,29 @@
-var time = new Date()
+let time = new Date()
 //importa os inputs por id
-var emini = document.getElementById('emini')
-var pasini = document.getElementById('pasini')
+let emini = document.getElementById('emini')
+let pasini = document.getElementById('pasini')
 //importa os botões por id
-var abrirform = document.getElementById('abrirform')
-var enviarform = document.getElementById('enviarform')
+let abrirform = document.getElementById('abrirform')
+let enviarform = document.getElementById('enviarform')
 //importa os imagens por id
-var carta = document.getElementById('cartaid')
-var cadeado = document.getElementById('cadeadoid')
-var busto = document.getElementById('bustoid')
-var martelo = document.getElementById('marteloid')
+let carta = document.getElementById('cartaid')
+let cadeado = document.getElementById('cadeadoid')
+let busto = document.getElementById('bustoid')
+let martelo = document.getElementById('marteloid')
 //cores
-var formulario = '#fff'
-var corclara=  '#71D5E4'
-var cormedia = '#00B6BC'
-var corescura = '#29A0B1'
-var corbordas = '#ccc'
-var corerro = '#a00'
-var corcerto = '#0a0'
+let formulario = '#fff'
+let corclara=  '#71D5E4'
+let cormedia = '#00B6BC'
+let corescura = '#29A0B1'
+let corbordas = '#ccc'
+let corerro = '#a00'
+let corcerto = '#0a0'
 
 console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds())
 
 //Visibilidade da senha
 
-var SenhaCheckbox = document.getElementById('checkSen')
+let SenhaCheckbox = document.getElementById('checkSen')
 
 SenhaCheckbox.addEventListener('change', function() {
     if (SenhaCheckbox.checked) {
@@ -35,7 +35,7 @@ SenhaCheckbox.addEventListener('change', function() {
 
 emini.addEventListener('input', function() {
     this.value = this.value.toLowerCase();
-});
+})
 
 //Muda a outline do formulario quando esta no foco
 emini.addEventListener('focus', () => {
@@ -49,20 +49,16 @@ pasini.addEventListener('focus', () => {
 
 //retorna a outline do formulario quando sai do foco
 emini.addEventListener('blur', async () => {
-    if (emini.value == "") { // volta os botões para como estavam no inicio
+    if (emini.value == "" || EmailValido(emini.value)) { // volta os botões para como estavam no inicio
         emini.style.borderColor = corbordas // todos os styles estão comentados no staly.css
         carta.style.borderColor = corbordas
         emerro.style.display = 'none'
-        abrirform.style.background = corescura
-        enviarform.style.background = cormedia
         return
-    } else if (!EmailValido(emini.value)) { // valida o email para mudar a cor da caixa
+    } else {
         emini.style.borderColor = corerro
         carta.style.borderColor = corerro
         emerro.style.display = 'block'
         return
-    } else {
-        window.location.href = null
     }
 })
 
@@ -77,12 +73,6 @@ pasini.addEventListener('blur', () => { //blur da senha #vai ser alterado
         pasini.style.borderColor = corerro
         cadeado.style.borderColor = corerro
         senerro.style.display = 'block'
-        esqueci.style.display = 'none'
-        return
-    } else if (tmvalido(pasini.value, 8, 250) && (botao === 'registrar' || botao == 'registrando')) {
-        pasini.style.borderColor = corcerto
-        cadeado.style.borderColor = corcerto
-        senerro.style.display = 'none'
         esqueci.style.display = 'none'
         return
     } else {
@@ -104,27 +94,38 @@ formlogin.addEventListener("submit", async (event) => {
         carta.style.borderColor = corerro
         emerro.style.display = 'block'
         return
-    }
-    //verificar a senha, se a senha tá certa ou não 
-    if (!tmvalido(pasini.value, 8, 250)) { // verifica se a senha é invalida para emitir um aviso
-        alert("Verifique o formulario")
-        pasini.style.borderColor = corerro
-        cadeado.style.borderColor = corerro
-        senerro.style.display = 'block'
-        return
-    } else if ("Senha incorreta" == "Senha incorreta") { //se a senha estiver errada, aparece no front imagens de erro 
-        pasini.style.borderColor = corerro
-        cadeado.style.borderColor = corerro
-        esqueci.style.display = 'block'
-        esqueci2.style.display = 'block'
-        return
-    } else { 
-        window.location.href = null
+    } else {//verificar a senha, se a senha está certa ou não 
+        if (!tmvalido(pasini.value, 8, 250)) { // verifica se a senha é invalida para emitir um aviso
+            alert("Verifique o formulario")
+            pasini.style.borderColor = corerro
+            cadeado.style.borderColor = corerro
+            senerro.style.display = 'block'
+            return
+        } 
+        let login = veficacontas(emini.value,pasini.value)
+        if (login == false) { //se a senha estiver errada, aparece no front imagens de erro 
+            pasini.style.borderColor = corerro
+            cadeado.style.borderColor = corerro
+            esqueci.style.display = 'block'
+            esqueci2.style.display = 'block'
+            return
+        } else if (login == null) {
+            emerro.style.display = 'block'
+            return
+        } else {
+            emerro.style.display = 'none'
+            esqueci.style.display = 'none'
+            esqueci2.style.display = 'none'
+            let usertk = JSON.stringify(login)
+            localStorage.setItem("token", usertk)
+            window.location.href = 'inicial.html'
+            return
+        }
     }
 })
 
 abrirform.addEventListener('click', async () => {
-    window.location.href = null
+    window.location.href = 'cadastro.html'
 })
 
 //Valida o email
