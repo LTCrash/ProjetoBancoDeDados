@@ -43,7 +43,7 @@ npm install
 
 ## Autoria
 
-- <a href="mailto:212007153@aluno.unb.br">Luis Felipe Hilario Carmona</a>
 - <a href="mailto:gabriel.pereira@aluno.unb.br">Gabriel Santos Pereira</a>
 - <a href="mailto:222011623@aluno.unb.br">Luana Pinho Torres</a>
+- <a href="mailto:212007153@aluno.unb.br">Luis Felipe Hilario Carmona</a>
 - <a href="mailto:211036132@aluno.unb.br">Ryan Reis Fontenele</a>
