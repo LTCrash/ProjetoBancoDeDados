@@ -1,6 +1,9 @@
 # Projeto de banco de dados: dependências funcionais e normalização – PT1
 
-Este projeto é dedicado a pratica de banco de dados da disciplina Banco de Dados CIC0097 da Universidade de Brasília - UnB, ministrada pelo professor <a href="mailto:pedro.garcia@unb.br">Pedro Garcia Freitas</a>.
+<p>
+  Este projeto é dedicado ao trabalho final da disciplina de Banco de Dados CIC0097 da Universidade de Brasília - UnB. <br />
+  Ministrada pelo professor <a href="mailto:pedro.garcia@unb.br">Pedro Garcia Freitas</a>.
+</p>
 
 ## Início Rápido
 
@@ -38,7 +41,7 @@ npm install
 
 ## Autoria
 
-<a href="mailto:212007153@aluno.unb.br">Luis Felipe Hilario Carmona</a>
-<a href="mailto:gabriel.pereira@aluno.unb.br">Gabriel Santos Pereira</a>
-<a href="mailto:222011623@aluno.unb.br">Luana Punho Torres</a>
-<a href="mailto:211036132@aluno.unb.br">Ryan Reis Fontenele</a>
+- <a href="mailto:212007153@aluno.unb.br">Luis Felipe Hilario Carmona</a>
+- <a href="mailto:gabriel.pereira@aluno.unb.br">Gabriel Santos Pereira</a>
+- <a href="mailto:222011623@aluno.unb.br">Luana Pinho Torres</a>
+- <a href="mailto:211036132@aluno.unb.br">Ryan Reis Fontenele</a>
