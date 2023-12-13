@@ -227,8 +227,6 @@ abrirform.addEventListener('click', async () => {
             emerro.style.display = 'block'
             alert("Verifique o formulario")
         } else {
-            let dicionarioJSON = JSON.stringify(usuarios)
-            localStorage.setItem("usuarios", dicionarioJSON)
             alert("Cadastrado com sucesso!")
             window.location.href = 'login.html'
         }
