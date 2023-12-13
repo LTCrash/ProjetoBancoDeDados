@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - mysql
+    networks:
+      - mynetwork
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sys
+    ports:
+      - 3306:3306
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
