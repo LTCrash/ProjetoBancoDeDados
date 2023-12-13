@@ -1,0 +1,6 @@
+GET http://localhost:8080/item
+
+##
+GET http://localhost:8080/item/1
+##
+POST http://localhost:8080/item
