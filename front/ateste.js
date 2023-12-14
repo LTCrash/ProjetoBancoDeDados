@@ -53,19 +53,22 @@ if (!solicitados) {
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-function veficacontas(login, senha){
-    for (user in usuarios){
-        if (usuarios[user].login == login) {
-            if (usuarios[user].password == senha){
-                return {id: user, nome: usuarios[user].nome, sobrenome: usuarios[user].sobrenome, urlimg: usuarios[user].urlimg, funcao: usuarios[user].funcao}
-            } else { 
-                return false
-            }
+//abaixo ok
+function verificacontas(login, senha) {
+    var sql = "SELECT * FROM usuarios WHERE login = ? AND password = ?";
+
+    con.query(sql, [login, senha], function (err, result) {
+        if (err) throw err;
+        if (result.length > 0) {
+            var user = result[0];
+            return { id: user.id, nome: user.nome, sobrenome: user.sobrenome, urlimg: user.urlimg, funcao: user.funcao };
+        } else {
+            return null;
         }
-    }
-    return null
+    });
 }
 
+//abaixo ok
 function adicionacontas(nome, sobrenome, login, password, urlimg) {
     if (login == "" || nome == "" || sobrenome == "" || password == "" || urlimg == "") {
         return null;
@@ -91,11 +94,14 @@ function adicionacontas(nome, sobrenome, login, password, urlimg) {
     });
 }
 
+//abaixo ok
+async function getLivro(id) {
+    const [rows, fields] = await con.execute('SELECT * FROM livros WHERE id = ?', [id]);
 
-function getLivro(id) {
-    return livros[id]
+    console.log(rows);
+
 }
-
+//abaixo ok
 function procuralivros(iduser){
     let listalivros = {}
     let peguei
@@ -126,41 +132,76 @@ function procuralivros(iduser){
     return listalivros
 }
 
-function adicionaLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid){
-    if (id in livros || usuarios[userid].funcao == 0) {
-        return false
+//abaixo ok
+function adicionaLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid) {
+    if (usuarios[userid].funcao == 0) {
+        return false;
     } else {
-        livros[id] = {por: por, descricao: descricao, categoria: categoria, dataaquisicao: dataaquisicao,
-            estado: estado, localizacaoFisica: localizacaoFisica, titulo: titulo,  urlimgitem: urlimgitem}
-            livrosJSON = JSON.stringify(livros)
-            localStorage.setItem("livros", livrosJSON)
-            livrosGetJSON = localStorage.getItem("livros")
-            livros = JSON.parse(livrosGetJSON)
-            return true
+        var livro = {
+            id: id,
+            por: por,
+            descricao: descricao,
+            categoria: categoria,
+            dataaquisicao: dataaquisicao,
+            estado: estado,
+            localizacaoFisica: localizacaoFisica,
+            titulo: titulo,
+            urlimgitem: urlimgitem
+        };
+
+        var sql = "INSERT INTO livros SET ?";
+
+        con.query(sql, livro, function (err, result) {
+            if (err) throw err;
+            console.log("Livro inserido: " + result.affectedRows);
+        });
+
+        return true;
     }
 }
 
-function editarLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid){
-    if (!(id in livros || usuarios[userid].funcao == 0)) {
-        return false
+
+//abaixo ok
+function editarLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid) {
+    if (usuarios[userid].funcao == 0) {
+        return false;
     } else {
-        livros[id] = {por: por, descricao: descricao, categoria: categoria, dataaquisicao: dataaquisicao,
-            estado: estado, localizacaoFisica: localizacaoFisica, titulo: titulo,  urlimgitem: urlimgitem}
-            livrosJSON = JSON.stringify(livros)
-            localStorage.setItem("livros", livrosJSON)
-            livrosGetJSON = localStorage.getItem("livros")
-            livros = JSON.parse(livrosGetJSON)
-            return true
+        var livro = {
+            por: por,
+            descricao: descricao,
+            categoria: categoria,
+            dataaquisicao: dataaquisicao,
+            estado: estado,
+            localizacaoFisica: localizacaoFisica,
+            titulo: titulo,
+            urlimgitem: urlimgitem
+        };
+
+        var sql = "UPDATE livros SET ? WHERE id = ?";
+
+        con.query(sql, [livro, id], function (err, result) {
+            if (err) throw err;
+            console.log("Número de livros atualizados: " + result.affectedRows);
+        });
+
+        return true;
     }
 }
 
+//abaixo ok
 function deletalivro(iduser, idlivro) {
-    delete livros[idlivro]
-    livrosJSON = JSON.stringify(livros)
-    localStorage.setItem("livros", livrosJSON)
-    livrosGetJSON = localStorage.getItem("livros")
-    livros = JSON.parse(livrosGetJSON)
-    return true
+    if (usuarios[iduser].funcao == 0) {
+        return false;
+    } else {
+        var sql = "DELETE FROM livros WHERE id = ?";
+
+        con.query(sql, [idlivro], function (err, result) {
+            if (err) throw err;
+            console.log("Número de livros deletados: " + result.affectedRows);
+        });
+
+        return true;
+    }
 }
 
 function solicitarLivro(iduser, idlivro, data1, data2) {
