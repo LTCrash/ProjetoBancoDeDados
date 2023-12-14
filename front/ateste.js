@@ -204,53 +204,49 @@ function deletalivro(iduser, idlivro) {
     }
 }
 
+//abaixo ok
 function solicitarLivro(iduser, idlivro, data1, data2) {
-    idlivro = parseInt(idlivro)
-    if (iduser in solicitados) {
-        for (lvs in solicitados[iduser]) {
-            if (solicitados[iduser][lvs].stats == 'Em andamento') {
-                return false
-            }
-        }
-        solicitados[iduser].unshift({livroid: idlivro, Dataemp: data1, datadv: data2, stats: 'Em andamento'})
-        
-    } else {
-        solicitados[iduser] = [{livroid: idlivro, Dataemp: data1, datadv: data2, stats: 'Em andamento'}]
-    }
-    solicitadosJSON = JSON.stringify(solicitados)
-    localStorage.setItem("solicitados", solicitadosJSON)
-    solicitadosGetJSON = localStorage.getItem("solicitados")
-    solicitados = JSON.parse(solicitadosGetJSON)
-    return true
+    var solicitacao = {
+        iduser: iduser,
+        idlivro: idlivro,
+        data1: data1,
+        data2: data2,
+        stats: 'Em andamento'
+    };
+
+    var sql = "INSERT INTO solicitacoes SET ?";
+
+    con.query(sql, solicitacao, function (err, result) {
+        if (err) throw err;
+        console.log("Solicitação inserida: " + result.affectedRows);
+    });
+
+    return true;
 }
 
+//abaixo ok
 function devolverLivro(iduser, idlivro) {
-    idlivro = parseInt(idlivro)
-    if (iduser in solicitados) {
-        for (lvs in solicitados[iduser]) {
-            if (solicitados[iduser][lvs].stats == 'Em andamento' && solicitados[iduser][lvs].livroid == idlivro) {
-                solicitados[iduser][lvs].stats = 'Finalizado'
-                solicitadosJSON = JSON.stringify(solicitados)
-                localStorage.setItem("solicitados", solicitadosJSON)
-                solicitadosGetJSON = localStorage.getItem("solicitados")
-                solicitados = JSON.parse(solicitadosGetJSON)
-                return true 
-            }
-        }
-        return false
-    } else {
-        return false
-    }
+    var sql = "UPDATE solicitacoes SET stats = 'Finalizado' WHERE iduser = ? AND idlivro = ? AND stats = 'Em andamento'";
+
+    con.query(sql, [iduser, idlivro], function (err, result) {
+        if (err) throw err;
+        console.log("Número de livros devolvidos: " + result.affectedRows);
+    });
+
+    return true;
 }
 
+//abaixo ok
 function livroPego(iduserid) {
-    var livropg = {}
-    if (iduserid in solicitados) {
-        for (lvs in solicitados[iduserid]) {
-            if (solicitados[iduserid][lvs].stats == 'Em andamento') {
-                livropg[solicitados[iduserid][lvs].livroid] = livros[solicitados[iduserid][lvs].livroid]
-                return livropg
-            }
+    var sql = "SELECT * FROM solicitacoes INNER JOIN livros ON solicitacoes.idlivro = livros.id WHERE solicitacoes.iduser = ? AND solicitacoes.stats = 'Em andamento'";
+
+    con.query(sql, [iduserid], function (err, result) {
+        if (err) throw err;
+        if (result.length > 0) {
+            console.log(result);
+            return result;
+        } else {
+            return false;
         }
-    } return false
+    });
 }
