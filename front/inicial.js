@@ -18,9 +18,12 @@ let idisbn = document.getElementById("idisbn")
 let edlink = document.getElementById("edlink")
 let edimg = document.getElementById("edimg")
 
+let pesquisar = document.getElementById("pesquisar")
+
 let Bsair = document.getElementById("sair")
 let Blogin = document.getElementById("login")
 let Bregistrar = document.getElementById("registrar")
+let Bpesquisar = document.getElementById("Bpesquisar")
 
 let Badicionar = document.getElementById("Adicionar")
 let Bcancelar = document.getElementById("cancelar")
@@ -372,12 +375,28 @@ let titulopego = document.getElementById("titulopego")
 let detalhepego = document.getElementById("detalhepego")
 let delvolverpego = document.getElementById("delvolverpego")
 
+Bpesquisar.addEventListener('click', async () => {
+    while (produtos.firstChild) {
+        produtos.removeChild(produtos.firstChild);
+    }
+    if (userlg) {
+        var idd = userlg.id
+    } else {
+        var idd = false
+    }
+    let listlivros = pesquisaLivro(idd, pesquisar.value)
+    for (lv in listlivros) {
+        criarElementoProduto(lv, listlivros[lv].urlimgitem, listlivros[lv].titulo, listlivros[lv].descricao, listlivros[lv].por, listlivros[lv].dataaquisicao,
+            listlivros[lv].estado, listlivros[lv].localizacaoFisica, listlivros[lv].categoria, listlivros[lv].emp, listlivros[lv].meu)
+    }
+})
+
 if(userlg) {
     var lvpego = livroPego(userlg.id)
     if (lvpego) {
         var chave = Object.keys(lvpego)[0]
         detalhepego.textContent = 'Id/ISBN: ' + chave
-        titulopego.textContent = 'Id/ISBN: ' + lvpego[chave].titulo
+        titulopego.textContent = lvpego[chave].titulo
         imgpego.src = lvpego[chave].urlimgitem
         linkpego.href = lvpego[chave].urlimgitem
         delvolverpego.id = chave
