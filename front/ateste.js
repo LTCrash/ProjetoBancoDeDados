@@ -2,7 +2,7 @@
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-    host: "localhost",
+    host: "localhost", // Mudar depois
     user: "seu_usuario",
     password: "sua_senha",
     database: "nome_do_banco_de_dados"
