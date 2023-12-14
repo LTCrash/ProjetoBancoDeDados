@@ -1,0 +1,13 @@
+Outros:
+git status >> para ver o status da versão do git
+
+Para baixar do repositório:
+git clone https://github.com/ [<diretorio de destino>] >>> para criar uma cópia do repositório >> dentro do [<>] você pode passar o local onde você quer baixar a cópia
+
+Para atualizar o repositório local:
+git pull >> para atualizar o repositório local com as alterações do repositório remoto
+
+Para subir para o repositório:
+git add . >> move as mudanças do diretório local para a área de preparação pro commit
+git commit -m "Update.." >> para subir as mudanças que você fez para o repositório online
+git push >> para enviar as alterações locais para o repositório remoto

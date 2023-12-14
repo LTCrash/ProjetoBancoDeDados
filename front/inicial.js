@@ -31,6 +31,19 @@ let Benviar = document.getElementById("enviar")
 let usertk = localStorage.getItem("token")
 let userlg = JSON.parse(usertk)
 
+function data() {
+    var time = new Date();
+    var timedia = (time.getDate()).toString().padStart(2, '0')
+    var timemes = (time.getMonth() + 1).toString().padStart(2, '0')
+    var timeano = time.getFullYear()
+    var data = new Date(); // data atual
+    data.setDate(data.getDate() + 7); // adiciona 7 dias à data
+    var datadia = (data.getDate()).toString().padStart(2, '0')
+    var datames = (data.getMonth() + 1).toString().padStart(2, '0')
+    var dataano = data.getFullYear()
+    return [timedia + '/' + timemes + '/' + timeano , datadia + '/' + datames + '/' + dataano]
+}
+
 function display(){
     if (userlg == null) {
         Bregistrar.style.display = "inline"
@@ -94,7 +107,7 @@ Bcancelar.addEventListener('click', async () => {
     editadd.style.display = 'none'
 })
 
-function criarElementoProduto(id, imagem, titulo, descricao, aut, aquisicao, estado, local, categoria) {
+function criarElementoProduto(id, imagem, titulo, descricao, aut, aquisicao, estado, local, categoria, emprestado, peguei) {
     // Cria os elementos
     var divProduto = document.createElement('div')
 
@@ -169,25 +182,28 @@ function criarElementoProduto(id, imagem, titulo, descricao, aut, aquisicao, est
     divUtil.appendChild(divInfos)
 
     if(userlg){
-        var inputSolicitar = document.createElement('input')
-        var inputDevolver = document.createElement('input')
 
-        inputSolicitar.className = 'botao'
-        inputSolicitar.type = 'button'
-        inputSolicitar.name = 'acao'
-        inputSolicitar.value = 'Solicitar'
-        inputSolicitar.id = id
-        inputSolicitar.setAttribute("onclick", "solicitar(this.id)")
+        if (!emprestado) {
+            var inputSolicitar = document.createElement('input')
+            inputSolicitar.className = 'botao'
+            inputSolicitar.type = 'button'
+            inputSolicitar.name = 'acao'
+            inputSolicitar.value = 'Solicitar'
+            inputSolicitar.id = id
+            inputSolicitar.setAttribute("onclick", "solicitar(this.id)")
+            divBotoes.appendChild(inputSolicitar)
+        }
 
-        inputDevolver.className = 'botaodv'
-        inputDevolver.type = 'button'
-        inputDevolver.name = 'acao'
-        inputDevolver.value = 'Devolver'
-        inputDevolver.id = id
-        inputDevolver.setAttribute("onclick", "devolver(this.id)")
-
-        divBotoes.appendChild(inputSolicitar)
-        divBotoes.appendChild(inputDevolver)
+        if (peguei) {
+            var inputDevolver = document.createElement('input')
+            inputDevolver.className = 'botaodv'
+            inputDevolver.type = 'button'
+            inputDevolver.name = 'acao'
+            inputDevolver.value = 'Devolver'
+            inputDevolver.id = id
+            inputDevolver.setAttribute("onclick", "devolver(this.id)")
+            divBotoes.appendChild(inputDevolver)
+        }
 
         if (userlg.funcao) {
             var inputEditar = document.createElement('input')
@@ -228,20 +244,37 @@ function criarElementoProduto(id, imagem, titulo, descricao, aut, aquisicao, est
     // Anexa o elemento produto ao corpo do documento
     produtos.appendChild(divProduto)
 }
-function solicitar() {
-
+function solicitar(id) {
+    var resposta = confirm("Você tem certeza?")
+    if (resposta) {
+        var ddata = data()
+        if (solicitarLivro(userlg.id, id, ddata[0], ddata[1])) {
+            alert('Solicitado com sucesso')
+            window.location.reload()
+        } else {
+            alert('Talvez tenha esquecido de devolver o livro anterior')
+        }
+    }
 }
 
-function devolver() {
-
+function devolver(id) {
+    var resposta = confirm("Você tem certeza?")
+    if (resposta) {
+        if (devolverLivro(userlg.id, id)) {
+            alert('Devolvido com sucesso')
+            window.location.reload()
+        } else {
+            alert('Erro ao execultar ação')
+        }
+    }
+    
 }
-
 
 Beditar.addEventListener('click', async () => {
-    if (edpor.value && eddescricao.value && edcategoria.value && edaquisicao.value && edestado.value && edlocalizacao.value && edtitulo.value && edimagem.value) {
-        let resposta = confirm("Você tem certeza?")
+    if (edpor.value && eddescricao.value && edcategoria.value && edaquisicao.value && edestado.value && edlocalizacao.value && edtitulo.value) {
+        var resposta = confirm("Você tem certeza?")
         if (resposta) {
-            if (editarLivro(edid.value, edpor.value, eddescricao.value, edcategoria.value, edaquisicao.value, edestado.value, edlocalizacao.value, edtitulo.value, edimagem.value) ) {
+            if (editarLivro(edid.value, edpor.value, eddescricao.value, edcategoria.value, edaquisicao.value, edestado.value, edlocalizacao.value, edtitulo.value, edimg.src, userlg.funcao)) {
                 alert('Editado com sucesso')
                 window.location.reload()
             } else {
@@ -254,10 +287,10 @@ Beditar.addEventListener('click', async () => {
 })
 
 Benviar.addEventListener('click', async () => {
-    if (!isNaN(edid.value) && edpor.value && eddescricao.value && edcategoria.value && edaquisicao.value && edestado.value && edlocalizacao.value && edtitulo.value && edimagem.value) {
-        let resposta = confirm("Você tem certeza?")
+    if (!isNaN(edid.value) && edpor.value && eddescricao.value && edcategoria.value && edaquisicao.value && edestado.value && edlocalizacao.value && edtitulo.value) {
+        var resposta = confirm("Você tem certeza?")
         if (resposta) {
-            if (adicionaLivro(edid.value, edpor.value, eddescricao.value, edcategoria.value, edaquisicao.value, edestado.value, edlocalizacao.value, edtitulo.value, edimagem.value) ) {
+            if (adicionaLivro(edid.value, edpor.value, eddescricao.value, edcategoria.value, edaquisicao.value, edestado.value, edlocalizacao.value, edtitulo.value, edimg.src, userlg.funcao)) {
                 alert('Adicionado com sucesso')
                 window.location.reload()
             } else {
@@ -268,8 +301,6 @@ Benviar.addEventListener('click', async () => {
         alert('Verifique o fumulario')
     }
 })
-
-
 
 edimagem.addEventListener('blur', () => {
     if (edimagem.value == ""){
@@ -297,7 +328,7 @@ function editar(id) {
     idisbn.style.display = 'block'
     Beditar.style.display = 'inline'
     Benviar.style.display = 'none'
-    let livr = getLivro(id)
+    var livr = getLivro(id)
     edtitulo.value = livr.titulo
     eddescricao.value = livr.descricao
     edpor.value = livr.por
@@ -311,7 +342,7 @@ function editar(id) {
 }
 
 function excluir(id) {
-    let resposta = confirm("Você tem certeza?")
+    var resposta = confirm("Você tem certeza?")
     if (resposta) {
         if (deletalivro(userlg.id, id)) {
             alert('Objeto excluido')
@@ -323,11 +354,36 @@ function excluir(id) {
 }
 
 function feed(){
-    let listlivros = procuralivros()
+    if (userlg) {
+        var idd = userlg.id
+    } else {
+        var idd = false
+    }
+    let listlivros = procuralivros(idd)
     for (lv in listlivros) {
         criarElementoProduto(lv, listlivros[lv].urlimgitem, listlivros[lv].titulo, listlivros[lv].descricao, listlivros[lv].por, listlivros[lv].dataaquisicao,
-            listlivros[lv].estado, listlivros[lv].localizacaoFisica, listlivros[lv].categoria)
+            listlivros[lv].estado, listlivros[lv].localizacaoFisica, listlivros[lv].categoria, listlivros[lv].emp, listlivros[lv].meu)
     }
 }
+
+let linkpego = document.getElementById("linkpego")
+let imgpego = document.getElementById("imgpego")
+let titulopego = document.getElementById("titulopego")
+let detalhepego = document.getElementById("detalhepego")
+let delvolverpego = document.getElementById("delvolverpego")
+
+if(userlg) {
+    var lvpego = livroPego(userlg.id)
+    if (lvpego) {
+        var chave = Object.keys(lvpego)[0]
+        detalhepego.textContent = 'Id/ISBN: ' + chave
+        titulopego.textContent = 'Id/ISBN: ' + lvpego[chave].titulo
+        imgpego.src = lvpego[chave].urlimgitem
+        linkpego.href = lvpego[chave].urlimgitem
+        delvolverpego.id = chave
+        delvolverpego.style.display = 'inline'
+    }
+}
+
 // Chama a função para criar o elemento produto
 feed()

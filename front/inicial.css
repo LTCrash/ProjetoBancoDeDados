@@ -713,3 +713,21 @@ div[id=edbot] {
     display: block;
     float: inline-end;
 }
+
+.revolver {
+    display: none;
+    width: 70px; /* largura do botão */
+    height: 35px; /* Altura do botão em pixel */
+    background: var(--corescura); /* Cor do botão */
+    color: var(--formulario); /* Cor da fonte */
+    border: 0;
+    cursor: pointer; /* Muda o ponteiro do mouse */
+    margin-left: 15px;
+    margin-top: 5px;
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Exibe "..." quando o texto é truncado */
+    font-weight: bold;
+    font-size: 90%; /* Tamanho da fonte */
+    float: right; /* Alinha o objeto a margem direita */
+}

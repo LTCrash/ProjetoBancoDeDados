@@ -22,7 +22,7 @@ if (!usuarios) {
     }
     let usuariosJSON = JSON.stringify(usuarios)
     localStorage.setItem("usuarios", usuariosJSON)
-} console.log(usuarios)
+}
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -37,6 +37,18 @@ if (!livros) {
     }
     let livrosJSON = JSON.stringify(livros)
     localStorage.setItem("livros", livrosJSON)
+}
+
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+let solicitadosGetJSON = localStorage.getItem("solicitados")
+let solicitados = JSON.parse(solicitadosGetJSON)
+if (!solicitados) { 
+    solicitados = {
+        1 : [{livroid: 8538083724, Dataemp: '12/12/2023', datadv: '19/12/2023', stats: 'Em andamento'}]
+    }
+    let solicitadosJSON = JSON.stringify(solicitados)
+    localStorage.setItem("solicitados", solicitadosJSON)
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -84,17 +96,38 @@ function getLivro(id) {
     return livros[id]
 }
 
-function procuralivros(){
+function procuralivros(iduser){
     let listalivros = {}
+    let peguei
+    let emprest
     for ( lv in livros){
+        peguei = false
+        emprest = false
+        if (iduser) {
+            if (iduser in solicitados) {
+                for (lvs in solicitados[iduser]) {
+                    if (solicitados[iduser][lvs].stats == 'Em andamento' && solicitados[iduser][lvs].livroid == lv) {
+                        peguei = true
+                    }
+                }
+            }
+            for (sol in solicitados) {
+                for (livs in solicitados[sol]) {
+                    if (solicitados[sol][livs].stats == 'Em andamento' && solicitados[sol][livs].livroid == lv) {
+                        emprest = true
+                    }
+                }
+            }
+        }
+        
         listalivros[lv] = {por: livros[lv].por, descricao: livros[lv].descricao, categoria: livros[lv].categoria, dataaquisicao: livros[lv].dataaquisicao,
-             estado: livros[lv].estado, localizacaoFisica: livros[lv].localizacaoFisica, titulo: livros[lv].titulo,  urlimgitem: livros[lv].urlimgitem}
+             estado: livros[lv].estado, localizacaoFisica: livros[lv].localizacaoFisica, titulo: livros[lv].titulo,  urlimgitem: livros[lv].urlimgitem, emp: emprest, meu: peguei}
     }
     return listalivros
 }
 
-function adicionaLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem){
-    if (id in livros) {
+function adicionaLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid){
+    if (id in livros || usuarios[userid].funcao == 0) {
         return false
     } else {
         livros[id] = {por: por, descricao: descricao, categoria: categoria, dataaquisicao: dataaquisicao,
@@ -107,8 +140,8 @@ function adicionaLivro(id, por, descricao, categoria, dataaquisicao, estado, loc
     }
 }
 
-function editarLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem){
-    if (!(id in livros)) {
+function editarLivro(id, por, descricao, categoria, dataaquisicao, estado, localizacaoFisica, titulo, urlimgitem, userid){
+    if (!(id in livros || usuarios[userid].funcao == 0)) {
         return false
     } else {
         livros[id] = {por: por, descricao: descricao, categoria: categoria, dataaquisicao: dataaquisicao,
@@ -128,4 +161,55 @@ function deletalivro(iduser, idlivro) {
     livrosGetJSON = localStorage.getItem("livros")
     livros = JSON.parse(livrosGetJSON)
     return true
+}
+
+function solicitarLivro(iduser, idlivro, data1, data2) {
+    idlivro = parseInt(idlivro)
+    if (iduser in solicitados) {
+        for (lvs in solicitados[iduser]) {
+            if (solicitados[iduser][lvs].stats == 'Em andamento') {
+                return false
+            }
+        }
+        solicitados[iduser].unshift({livroid: idlivro, Dataemp: data1, datadv: data2, stats: 'Em andamento'})
+        
+    } else {
+        solicitados[iduser] = [{livroid: idlivro, Dataemp: data1, datadv: data2, stats: 'Em andamento'}]
+    }
+    solicitadosJSON = JSON.stringify(solicitados)
+    localStorage.setItem("solicitados", solicitadosJSON)
+    solicitadosGetJSON = localStorage.getItem("solicitados")
+    solicitados = JSON.parse(solicitadosGetJSON)
+    return true
+}
+
+function devolverLivro(iduser, idlivro) {
+    idlivro = parseInt(idlivro)
+    if (iduser in solicitados) {
+        for (lvs in solicitados[iduser]) {
+            if (solicitados[iduser][lvs].stats == 'Em andamento' && solicitados[iduser][lvs].livroid == idlivro) {
+                solicitados[iduser][lvs].stats = 'Finalizado'
+                solicitadosJSON = JSON.stringify(solicitados)
+                localStorage.setItem("solicitados", solicitadosJSON)
+                solicitadosGetJSON = localStorage.getItem("solicitados")
+                solicitados = JSON.parse(solicitadosGetJSON)
+                return true 
+            }
+        }
+        return false
+    } else {
+        return false
+    }
+}
+
+function livroPego(iduserid) {
+    var livropg = {}
+    if (iduserid in solicitados) {
+        for (lvs in solicitados[iduserid]) {
+            if (solicitados[iduserid][lvs].stats == 'Em andamento') {
+                livropg[solicitados[iduserid][lvs].livroid] = livros[solicitados[iduserid][lvs].livroid]
+                return livropg
+            }
+        }
+    } return false
 }
