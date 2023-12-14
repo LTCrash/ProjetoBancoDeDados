@@ -1,6 +1,21 @@
 //localStorage.removeItem("livros")
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "seu_usuario",
+    password: "sua_senha",
+    database: "nome_do_banco_de_dados"
+});
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Conectado!");
+});
+
 let usuariosGetJSON = localStorage.getItem("usuarios")
 let usuarios = JSON.parse(usuariosGetJSON)
+
 if (!usuarios) {
     usuarios = {
         "1" : {nome: "Doguinho", sobrenome: "Da Silva", login: "dog@gmail.com", password: "12345678", urlimg: "https://i.imgur.com/xtoLyW2.jpeg", funcao : 1}
@@ -39,20 +54,31 @@ function veficacontas(login, senha){
     return null
 }
 
-function adicionacontas(nome, sobrenome,login,password,urlimg){
-    if (login == "" || nome == "" || sobrenome == "" || password == "" ||urlimg == ""){
-        return null
+function adicionacontas(nome, sobrenome, login, password, urlimg) {
+    if (login == "" || nome == "" || sobrenome == "" || password == "" || urlimg == "") {
+        return null;
     }
-    for (user in usuarios){
-        if (usuarios[user].login == login) {
-            return false
-        }
-    }
-    usuarios[parseInt(user, 10)+1] = {nome: nome, sobrenome: sobrenome, login: login, password: password, urlimg: urlimg , funcao : 0}
-    let dicionarioJSON = JSON.stringify(usuarios)
-    localStorage.setItem("usuarios", dicionarioJSON)
-    return true
+
+    var usuario = {
+        nome: nome,
+        sobrenome: sobrenome,
+        login: login,
+        password: password,
+        urlimg: urlimg,
+        funcao: 0
+    };
+
+    var sql = "INSERT INTO usuarios (nome, sobrenome, login, password, urlimg, funcao) VALUES ?";
+    var values = [
+        [usuario.nome, usuario.sobrenome, usuario.login, usuario.password, usuario.urlimg, usuario.funcao]
+    ];
+
+    con.query(sql, [values], function (err, result) {
+        if (err) throw err;
+        console.log("Número de registros inseridos: " + result.affectedRows);
+    });
 }
+
 
 function getLivro(id) {
     return livros[id]
